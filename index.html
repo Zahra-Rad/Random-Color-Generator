@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      main {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        > section {
+          width: calc(100vh + 200vw);
+          height: 100%;
+          display: flex;
+          flex-wrap: nowrap;
+          position: absolute;
+          left: 0;
+          transition: 2000ms ease-in-out;
+          > div {
+            width: calc(50vh + 100vw);
+            height: 100%;
+          }
+          > span {
+            width: 100vh;
+            height: 100vh;
+            border-radius: 50%;
+            background-color: rgb(0, 0, 0);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+          }
+        }
+        > div {
+          width: 100vw;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background: transparent;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 10;
+          > * {
+            margin: 50px 0;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+          }
+          > h1 {
+            background-color: #ffffffaf;
+            color: black;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            font-size: 40px;
+            > span {
+              opacity: 1;
+              transition: 500ms;
+            }
+          }
+          > button {
+            width: 200px;
+            padding: 10px;
+            font-size: 30px;
+            border-radius: 8px;
+            outline: none;
+            border: none;
+            box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.453),
+              5px 5px 5px rgba(0, 0, 0, 0.162);
+            cursor: pointer;
+            transition: 200ms ease-in;
+            &:hover {
+              transform: scale(1.02);
+            }
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div></div>
+        <div></div>
+        <span></span>
+      </section>
+      <div>
+        <h1>Background Color: rgb <span id="color-code">(255, 255, 255)</span></h1>
+        <button>Generate</button>
+      </div>
+    </main>
+    <script>
+      const btn = document.querySelector("button");
+      const response = document.querySelector("#color-code");
+      const pallets = document.querySelectorAll("section>div");
+      const container = document.querySelector("section");
+      let p = 1;
+
+      btn.addEventListener("click", () => {
+        let r = parseInt(Math.random() * 255);
+        let g = parseInt(Math.random() * 255);
+        let b = parseInt(Math.random() * 255);
+
+        if (p == 0) {
+          container.style.left = "0%";
+        } else {
+          container.style.left = "calc(-100vh - 100vw)";
+        }
+
+        pallets[p].style.backgroundColor =
+          "rgba(" + r + ", " + g + ", " + b + ")";
+        setTimeout(() => {
+          response.innerHTML = "(" + r + ", " + g + ", " + b + ")";
+        }, 1500);
+
+        p++;
+        p == 2 ? (p = 0) : p;
+      });
+    </script>
+  </body>
+</html>
